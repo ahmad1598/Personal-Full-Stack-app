@@ -22,7 +22,7 @@ class Login extends Component {
     }
 
     render() {
-        console.log(this.props.errMsg)
+        // console.log(this.props.errMsg)
         return (
             <form onSubmit={this.handleSubmit}>
                 <input 
@@ -40,7 +40,7 @@ class Login extends Component {
                 
                 <button className="btn">Login</button>
 
-                {this.props.errMsg && <p style={{color: "red"}}>{this.state.errMsg}</p>}
+                <p style={{color: "red"}}>{this.props.errMsg}</p>
             </form>
         )
     }

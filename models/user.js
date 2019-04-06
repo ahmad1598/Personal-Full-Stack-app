@@ -21,8 +21,8 @@ const userSchema = new Schema ({
         trim: true
     },
     photo:{
-        type: String,
-        trim: true
+        data: Buffer,
+        contentType: String
     },
     about:{
         type: String,
@@ -33,14 +33,8 @@ const userSchema = new Schema ({
         type: Date,
         default: Date.now
     },
-    following: [{
-        type: Schema.Types.ObjectId,
-        ref: "User"
-    }],
-    followers: [{
-        type: Schema.Types.ObjectId,
-        ref: "User"
-    }]
+    following: [{type: Schema.Types.ObjectId, ref: 'User'}],
+    followers: [{type: Schema.Types.ObjectId, ref: 'User'}]
 
 })
 

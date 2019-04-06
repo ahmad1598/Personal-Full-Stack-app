@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const morgan = require('morgan')
 const expressJwt = require('express-jwt')
 const path = require('path')
+const bodyParser = require('body-parser')
 const PORT = process.env.PORT || 7000
 
 app.use(express.json())
@@ -25,7 +26,8 @@ app.use("/api", expressJwt({secret: process.env.SECRET}))
 app.use("/api/posts", require("./routes/postRoutes.js"))
 app.use("/api/users", require("./routes/userRoutes.js"))
 
-
+// app.use(bodyParser.urlencoded({extended: true}))
+// app.use(express.static(path.join(__dirname, '..' , 'public')))
 
 app.use((err,req,res,next) => {
     console.log(err)

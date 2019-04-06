@@ -41,7 +41,7 @@ class Signup extends Component{
                     <input type="text" onChange = {this.handleChange} name="password" value={this.state.password} placeholder="Password"/> 
                     <input type="text" onChange = {this.handleChange} name="email" value={this.state.email} placeholder="Email Address"/> 
                     <button className="btn blue">Sign Up</button>
-                    {this.props.errMsg && <p style={{color: "red"}}>{this.state.errMsg}</p>}
+                    {this.props.errMsg && <p style={{color: "red"}}>{this.props.errMsg}</p>}
                 </form>
             </div>
         )

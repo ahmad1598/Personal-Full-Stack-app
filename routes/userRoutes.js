@@ -4,8 +4,11 @@ const User = require('../models/user.js')
 const formidable = require('formidable')
 const fs = require('fs')
 const _ = require('lodash')
-// const profileImage = require('./../client/src/img/default.png')
+const path = require('path')
+const multer = require('multer')
 // import _ from 'lodash'
+
+const router = express.Router()
 
 userRouter.get('/photo/:userId', (req,res,next) => {
     if(req.profile.photo.data){
@@ -32,29 +35,32 @@ userRouter.get('/', (req, res) => {
     })
 })
 
-userRouter.put('/following' , (req,res,next) => {
-    User.findByIdAndUpdate(req.body.userId,{$push:{following:req.body.followId}} , (err, result) => {
-        if(err){
-            res.status(500)
-            return next(err)
-        }
-    })
+userRouter.put('/follow' , async (req,res,next) => {
+    try{
+        const updatedUser = await User.findByIdAndUpdate(req.user._id,{$push:{following:req.body.followId}})
+        const updateFollower = await User.findByIdAndUpdate(req.body.followId,{$push:{followers:req.user._id}})
+        return res.status(201).send({updatedUser,updateFollower})
+
+    }
+    catch(err){
+        res.status(500)
+        return next(err)
+    }
 })
 
-userRouter.put('/follower', (req,res,next) => {
-    User.findByIdAndUpdate(req.body.followId , {$push:{followers: req.body.userId}},{new:true})
-    .populate('following', '_id name')
-    .populate('followers', '_id name')
-    .exec((err, result) => {
-    if (err) {
-       res.status(500)
-        return next(err) 
+userRouter.put('/unfollow' , async (req,res,next) => {
+    try{
+        const updatedUser = await User.findByIdAndUpdate(req.user._id,{$pull:{following:req.body.followId}})
+        const updateFollower = await User.findByIdAndUpdate(req.body.followId,{$pull:{followers:req.user._id}})
+        return res.status(201).send({updatedUser,updateFollower})
+
     }
-    // result.hashed_password = undefined
-    // result.salt = undefined
-    // res.json(result)
-  })
+    catch(err){
+        res.status(500)
+        return next(err)
+    }
 })
+
 
 //CREATE A NEW USER
 userRouter.post('/', (req,res,next) => {
@@ -102,32 +108,57 @@ userRouter.delete('/:_id' , (req, res) => {
     })
 })
 
-//UPDATE
-userRouter.put(':/_id', (req,res, next) => {
-    let form = new formidable.IncomingForm()
-    form.keepExtensions = true
-    form.parse(req, (err,fields,files) => {
+
+//UPDATE A USER
+userRouter.put('/:_id', (req, res, next) => {
+    User.findOneAndUpdate({_id: req.params._id} , req.body , { new: true }, (err, updatedUser) => {
         if(err){
-            return res.status(400).json({
-                error:'Photo could not be uploaded'
-            })
+            res.status(500)
+            return next(err)
         }
-        let user = req.profile
-        user = _.extend(user,fields)
-        user.updated = Date.now()
-        if(files.photo){
-            user.photo.data = fs.readFileSync(files.photo.path)
-            user.photo.contentType = files.photo.type
-        }
-        user.save((err, result) => {
-            if(err){
-                res.status(500)
-                return res.send(err)
-            }
-            res.json(user)
-        })
+        return res.status(201).send({updatedUser:updatedUser.withoutPassword()})
     })
 })
+
+//return res.status(200).send({token: token, user: user.withoutPassword(), success: true})
+
+//UPDATE
+// userRouter.put(':/_id', (req,res, next) => {
+//     let form = new formidable.IncomingForm()
+//     form.keepExtensions = true
+//     form.parse(req, (err,fields,files) => {
+//         if(err){
+//             return res.status(400).json({
+//                 error:'Photo could not be uploaded'
+//             })
+//         }
+//         let user = req.profile
+//         user = _.extend(user,fields)
+//         user.updated = Date.now()
+//         if(files.photo){
+//             user.photo.data = fs.readFileSync(files.photo.path)
+//             user.photo.contentType = files.photo.type
+//         }
+//         user.save((err, result) => {
+//             if(err){
+//                 return res.status(400).json({
+//                     error: 'something went wrong'
+//                   })
+//             }
+//             res.json(user)
+//         })
+//     })
+// })
+
+userRouter.get('/photo/:userId',(req,res,next) => {
+    if(req.profile.photo.data){
+        res.set("Content-Type", req.profile.photo.contentType)
+        return res.send(req.profile.photo.data)
+      }
+      next()
+})
+
+
 
 
 

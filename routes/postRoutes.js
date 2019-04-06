@@ -43,17 +43,47 @@ postRouter.delete('/:_id', (req, res) => {
     })
 })
 
+
 //UPDATE A POST
-postRouter.put('/:_id', (req, res) => {
+postRouter.put('/:_id', (req, res, next) => {
     Post.findOneAndUpdate({_id: req.params._id} , req.body , { new: true }, (err, updatedPost) => {
         if(err){
             res.status(500)
-            return res.send(err)
+            return next(err)
         }
 
         return res.status(201).send(updatedPost)
     })
 })
+
+
+//Increment likes
+postRouter.put('/like/:_id', (req,res,next) => {
+    Post.findOneAndUpdate({_id:req.params._id},req.body , {new: true} , (err, updatedPost) => {
+        if(err){
+            res.status(500)
+            return next(err)
+        }
+        return res.status(201).send(updatedPost)
+    })
+})
+
+//Increment likes
+postRouter.put('/dislike/:_id', (req,res,next) => {
+    Post.findOneAndUpdate({_id:req.params._id},{$inc:{dislike: -1}} , {new: true} , (err, updatedPost) => {
+        if(err){
+            res.status(500)
+            return next(err)
+        }
+        return res.status(201).send(updatedPost)
+    })
+})
+
+//CREATE A NEW COMMENT
+// postRouter.post('/comments/:_id' , (req, res, next) => {
+//     Post.findOneAndUpdate({_id:req.params._id},{$push:{}})
+// })
+
 
 
 module.exports = postRouter

@@ -1,8 +1,11 @@
 import React from 'react'
-
-const Home = () => {
+import {withData} from '../context/DataProvider.js'
+const Home = (props) => {
     return(
-        <div className="container">Home</div>
+        (props.token)?
+        <div className="HomeLogincontainer card">Home</div>
+           :
+        <div className="HomeLogoutcontainer card">Else</div>
     )
 }
-export default Home
+export default withData(Home)

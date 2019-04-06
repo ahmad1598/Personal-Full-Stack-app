@@ -11,6 +11,10 @@ const postSchema = new Schema({
         contentType: String
     },
     likes: {
+        type: Boolean,
+        default: false
+    },
+    dislike: {
         type: Number,
         default: 0
     },

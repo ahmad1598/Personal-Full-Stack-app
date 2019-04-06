@@ -57,7 +57,7 @@ class DataProvider extends Component {
                 }, () => this.props.history.push(`/${this.state.user.username}/userhome`))
                 
             })
-            .catch(err => console.log(err.response ))
+            .catch(err => this.setState({ errMsg: err.response.data.errMsg }))
     }
 
     logout = () => {
@@ -80,6 +80,16 @@ class DataProvider extends Component {
             .catch(err => console.log(err.response.data.errMsg))
     } 
 
+    addComment = newComment => {
+        dataAxios.post("/api/posts",newComment)
+            .then(response => {
+                this.setState(prevState => ({
+                    posts:[...prevState.posts, response.data]
+                }))
+            })
+            .catch(err => console.log(err.response.data.errMsg))
+    } 
+
     getPosts = () => {
         dataAxios.get("/api/posts")
             .then(res => {
@@ -94,10 +104,77 @@ class DataProvider extends Component {
         dataAxios.get("/api/users")
             .then(res => {
                 this.setState({
-                    users: res.data
+                    // all users will be shown but the current user logged in
+                    users: res.data.filter(user => user._id !== this.state.user._id)
+
                 })
             })
             .catch(err => console.log(err.response.data.errMsg))
+    }
+
+    handleLike = (_id,update) => {
+        dataAxios.put(`/api/posts/like/${_id}`,update).then(res => {
+            // console.log(res)
+            this.setState(pervState => ({
+                posts: pervState.posts.map(post => post._id === _id ? res.data : post)
+            }))
+        }).catch(err => console.log(err))
+    }
+
+    handleDislike = (_id) => {
+        dataAxios.put(`/api/posts/dislike/${_id}`).then(res => {
+            // console.log(res)
+            this.setState(pervState => ({
+                posts: pervState.posts.map(post => post._id === _id ? res.data : post)
+            }))
+        }).catch(err => console.log(err))
+    }
+
+    deletePost = (_id, title) => {
+        if(window.confirm(`Are you sure you want to delete ${title} ? `)){
+        // if (answer) {
+            dataAxios.delete("/api/posts/" + _id).then(response => {
+                this.setState(prevState => ({
+                    posts: prevState.posts.filter(post => post._id !== _id)
+                }))
+            })
+        } 
+    }
+
+    updatePost = (_id,update) => {
+        dataAxios.put(`/api/posts/${_id}`,update).then(res => {
+            this.setState(pervState => ({
+                posts: pervState.posts.map(post => post._id === _id ? res.data : post)
+                
+            }))
+        })
+    }
+
+    updateUser = (_id,update) => {
+        dataAxios.put(`/api/users/${_id}`,update).then(res => {
+            // console.log(res.data)
+            // localStorage.user = JSON.stringify(res.data)
+            this.setState(pervState => ({
+                users: pervState.users.map(user => user._id === _id ? res.data : user)
+                
+            }))
+        })
+    }
+
+    followUser = (followId) => {
+        dataAxios.put(`/api/users/follow`, (followId)).then(res => {
+            console.log(res.data.updatedUser.following)
+            console.log(followId)
+            console.log(this.state.user)
+            this.setState(pervState => ({
+                // users: pervState.users.map(user => user._id === this.state.user._id ? res.data : user)
+                user:{
+                    following: res.data.updatedUser.following
+                }
+                
+            }))
+            console.log(this.state.user)
+        })
     }
     
 
@@ -109,6 +186,7 @@ class DataProvider extends Component {
                     users: this.state.users,
                     posts: this.state.posts,
                     token: this.state.token,
+                    errMsg:this.state.errMsg,
                     isLoggedIn: this.state.isLoggedIn,
                     user: this.state.user,
                     signup: this.signup,
@@ -116,7 +194,13 @@ class DataProvider extends Component {
                     logout:this.logout,
                     addPost: this.addPost,
                     getPosts: this.getPosts,
-                    getUsers: this.getUsers
+                    getUsers: this.getUsers,
+                    handleLike: this.handleLike,
+                    handleDislike:this.handleDislike,
+                    deletePost:this.deletePost,
+                    updatePost:this.updatePost,
+                    updateUser:this.updateUser,
+                    followUser:this.followUser
                 }}>
                 {this.props.children}
             </DataContext.Provider>

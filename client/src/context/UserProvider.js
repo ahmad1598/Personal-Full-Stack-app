@@ -1,9 +1,9 @@
 import React,{Component} from 'react'
-import axios from 'axios'
+// import axios from 'axios'
 import {withRouter} from 'react-router-dom'
 const UserContext = React.createContext()
 
-const dataAxios = axios.create()
+// const dataAxios = axios.create()
 
 class UserProvider extends Component{
     constructor(){
