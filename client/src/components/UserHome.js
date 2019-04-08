@@ -8,14 +8,12 @@ class UserHome extends Component{
         super(props)
         this.state ={
             text:""
-            
-            
         }
     }
 
     componentDidMount(){
         this.props.getPosts()
-        this.props.getUsers()
+        // this.props.getUsers()
     }
 
     handleChange = e => {
@@ -37,20 +35,17 @@ class UserHome extends Component{
     }
 
     handleFollow = (_id) => {
-        // e.preventDefault()
         console.log(_id)
     }
 
     render(){
-        // console.log(this.props)
         return(
-            <div className="container">
-                <div className="row col s12">
-                    <h4>Welcome {this.props.user.username}</h4>
-                    {/* <br /> */}
+            <div className="row">
+                <div className="col s12 offset-s1">
+                    <h4>Welcome { this.props.user.username.charAt(0).toUpperCase() + this.props.user.username.slice(1) }</h4>
                     <div className="newPostUserInfo">
-                        <img src="https://institutogoldenprana.com.br/wp-content/uploads/2015/08/no-avatar-25359d55aa3c93ab3466622fd2ce712d1.jpg" alt="" />
-                        <p>{this.props.user.username}</p>
+                        <img src={this.props.user.photo || "https://institutogoldenprana.com.br/wp-content/uploads/2015/08/no-avatar-25359d55aa3c93ab3466622fd2ce712d1.jpg"} alt="" />
+                        <h4>{ this.props.user.username.charAt(0).toUpperCase() + this.props.user.username.slice(1) }</h4>
                     </div>
                     
                     <NewPostForm 
@@ -59,36 +54,35 @@ class UserHome extends Component{
                         btnText = "ADD POST"    
                         {...this.state}
                     />
+                </div>
+                              
+                <div className="card-panel col s5 push-m1">
+                    <div className="card-content white-text">
+                    <h4 className="card-title black-text">All Posts</h4>
+                        {this.props.posts.map(post => 
+                                <Posts 
+                                    text1={post.text}
+                                    postText = {post.text}
+                                    {...post}
+                                    {...this.state}
+                                    key={post._id}
+                                />
+                        )}
+                    </div>
+                </div>
 
-                    <div className="col s6 followUser">
-                        <span>Users to Follow</span>
-                                                            {/* (user._id !== this.props.match.user.id)
-                                                                && */}
+                <div className=" card-panel col s3 push-s2">
+                        <h6 className="card-title white-text">Suggestions For You</h6>
                         {this.props.users.map(user => 
                             <div className="follow" key={user._id}>
-                                <img src="https://institutogoldenprana.com.br/wp-content/uploads/2015/08/no-avatar-25359d55aa3c93ab3466622fd2ce712d1.jpg" alt=""/>
-                                <h6>{user.username}</h6>
-                                                            {/* FIX ME - Add clickable functionality to Follow Button */}
+                                <img src={user.photo || "https://institutogoldenprana.com.br/wp-content/uploads/2015/08/no-avatar-25359d55aa3c93ab3466622fd2ce712d1.jpg"} alt=""/>
+                                <h6>{ user.username.charAt(0).toUpperCase() + user.username.slice(1) }</h6>
                                 <button className="btn blue" onClick={() => this.props.followUser(user._id)}>Follow</button> 
                             </div>
                         )
                         }
                     </div>
-                </div>                
-                <div className="row s6 allPosts">
-                <h4>All Posts</h4>
-
-                {this.props.posts.map(post => 
-                        <Posts 
-                            text1={post.text}
-                            postText = {post.text}
-                            {...post}
-                            {...this.state}
-                            key={post._id}
-                        />
-                )}
-                
-                </div>
+                    
             </div>
         )
     }

@@ -70,7 +70,7 @@ postRouter.put('/like/:_id', (req,res,next) => {
 
 //Increment likes
 postRouter.put('/dislike/:_id', (req,res,next) => {
-    Post.findOneAndUpdate({_id:req.params._id},{$inc:{dislike: -1}} , {new: true} , (err, updatedPost) => {
+    Post.findOneAndUpdate({_id:req.params._id},req.body , {new: true} , (err, updatedPost) => {
         if(err){
             res.status(500)
             return next(err)
@@ -78,6 +78,15 @@ postRouter.put('/dislike/:_id', (req,res,next) => {
         return res.status(201).send(updatedPost)
     })
 })
+// postRouter.put('/dislike/:_id', (req,res,next) => {
+//     Post.findOneAndUpdate({_id:req.params._id},{$inc:{dislike: -1}} , {new: true} , (err, updatedPost) => {
+//         if(err){
+//             res.status(500)
+//             return next(err)
+//         }
+//         return res.status(201).send(updatedPost)
+//     })
+// })
 
 //CREATE A NEW COMMENT
 // postRouter.post('/comments/:_id' , (req, res, next) => {

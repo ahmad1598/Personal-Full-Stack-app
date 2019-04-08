@@ -23,7 +23,8 @@ class DataProvider extends Component {
             token: localStorage.getItem("token") || "",
             isLoggedIn: ((localStorage.getItem('isLoggedIn')) === "true") || false,
             user: JSON.parse(localStorage.getItem("user")) || {},
-            errMsg:''
+            errMsg:'',
+            following:[]
         }
     }
 
@@ -96,17 +97,20 @@ class DataProvider extends Component {
                 this.setState({
                     posts: res.data
                 })
-            })
+            }, this.getUsers())
             .catch(err => console.log(err.response.data.errMsg))
     }
 
     getUsers = () => {
         dataAxios.get("/api/users")
             .then(res => {
+                const updatedUserArr = res.data.filter(user => {
+                    if(!this.state.user.following.includes(user._id)){
+                        return user
+                    }
+                })
                 this.setState({
-                    // all users will be shown but the current user logged in
-                    users: res.data.filter(user => user._id !== this.state.user._id)
-
+                    users: updatedUserArr.filter(user => user._id !== this.state.user._id)
                 })
             })
             .catch(err => console.log(err.response.data.errMsg))
@@ -115,17 +119,17 @@ class DataProvider extends Component {
     handleLike = (_id,update) => {
         dataAxios.put(`/api/posts/like/${_id}`,update).then(res => {
             // console.log(res)
-            this.setState(pervState => ({
-                posts: pervState.posts.map(post => post._id === _id ? res.data : post)
+            this.setState(prevState => ({
+                posts: prevState.posts.map(post => post._id === _id ? res.data : post)
             }))
         }).catch(err => console.log(err))
     }
 
-    handleDislike = (_id) => {
-        dataAxios.put(`/api/posts/dislike/${_id}`).then(res => {
+    handleDislike = (_id,update) => {
+        dataAxios.put(`/api/posts/dislike/${_id}`,update).then(res => {
             // console.log(res)
-            this.setState(pervState => ({
-                posts: pervState.posts.map(post => post._id === _id ? res.data : post)
+            this.setState(prevState => ({
+                posts: prevState.posts.map(post => post._id === _id ? res.data : post)
             }))
         }).catch(err => console.log(err))
     }
@@ -143,37 +147,53 @@ class DataProvider extends Component {
 
     updatePost = (_id,update) => {
         dataAxios.put(`/api/posts/${_id}`,update).then(res => {
-            this.setState(pervState => ({
-                posts: pervState.posts.map(post => post._id === _id ? res.data : post)
+            this.setState(prevState => ({
+                posts: prevState.posts.map(post => post._id === _id ? res.data : post)
                 
             }))
         })
     }
 
-    updateUser = (_id,update) => {
-        dataAxios.put(`/api/users/${_id}`,update).then(res => {
-            // console.log(res.data)
-            // localStorage.user = JSON.stringify(res.data)
-            this.setState(pervState => ({
-                users: pervState.users.map(user => user._id === _id ? res.data : user)
+    // updateUser = (_id,update) => {
+    //     dataAxios.put(`/api/users/${_id}`,update).then(res => {
+    //         // console.log(res.data)
+    //         localStorage.user = JSON.stringify(res.data)
+    //         this.setState(prevState => ({
+    //             users: prevState.users.map(user => user._id === _id ? res.data : user)
                 
+    //         }))
+    //     })
+    // }
+
+    updateUser = (updates) => {
+        console.log(updates)
+        dataAxios.put(`/api/users`, updates).then(res => {
+            localStorage.user = JSON.stringify(res.data)
+            this.setState(prevState => ({
+                user: res.data
             }))
         })
     }
 
     followUser = (followId) => {
-        dataAxios.put(`/api/users/follow`, (followId)).then(res => {
-            console.log(res.data.updatedUser.following)
+        dataAxios.put(`/api/users/follow`, {followId}).then(res => {
+            console.log(res.data.updatedUser)
             console.log(followId)
             console.log(this.state.user)
-            this.setState(pervState => ({
-                // users: pervState.users.map(user => user._id === this.state.user._id ? res.data : user)
-                user:{
-                    following: res.data.updatedUser.following
-                }
-                
+            localStorage.setItem("user", JSON.stringify(res.data.updatedUser))
+   
+            this.setState(prevState => ({ 
+                user: res.data.updatedUser,
+                users: prevState.users.filter(user => user._id !== followId)
+
             }))
-            console.log(this.state.user)
+        })
+    }
+
+    following = (followId) => {
+        dataAxios.put(`/api/users/following`, {followId}).then(res => {
+            console.log(res.data)
+            this.setState({following: res.data})
         })
     }
     
@@ -200,7 +220,8 @@ class DataProvider extends Component {
                     deletePost:this.deletePost,
                     updatePost:this.updatePost,
                     updateUser:this.updateUser,
-                    followUser:this.followUser
+                    followUser:this.followUser,
+                    following:this.following
                 }}>
                 {this.props.children}
             </DataContext.Provider>

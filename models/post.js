@@ -15,8 +15,10 @@ const postSchema = new Schema({
         default: false
     },
     dislike: {
-        type: Number,
-        default: 0
+        // type: Number,
+        // default: 0
+        type: Boolean,
+        default: false
     },
     comments: [{
         text: String,

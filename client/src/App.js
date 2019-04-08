@@ -10,16 +10,42 @@ import Profile from './components/Profile.js'
 import Signup from './components/Signup.js'
 import Login from './components/Login.js'
 import EditProfile from './components/EditProfile.js';
+import {pink, orange} from '@material-ui/core/colors'
+import {MuiThemeProvider,createMuiTheme} from '@material-ui/core/styles'
+import Footer from './components/Footer.js';
 
+
+const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true,
+  },
+  palette: {
+    primary: {
+    light: '#2196f3', 
+    main: '#1e88e5', //Main Color
+    dark: '#1565c0',
+    contrastText: '#fff',
+  },
+  secondary: {
+    light: '#ffd95b', //Yellow
+    main: '#ffa726', // Yellow
+    dark: '#c77800', //Brown
+    contrastText: '#000',
+  },
+    openTitle: pink['700'],
+    protectedTitle: orange['700'],
+    type: 'light'
+  }
+});
 
 class App extends Component {
   // constructor(props){
   //   super(props)
   // }
   render() {
-    // console.log(this.props)
     return (
-      <div>
+      <MuiThemeProvider theme={theme}>
+        {/* {this.props.token && <Navbar {...this.props}/> } */}
         <Navbar {...this.props}/>
         {/* <Menu /> */}
         <Switch>
@@ -35,7 +61,8 @@ class App extends Component {
           {/* <ProtectedRoute path={`/${this.props.user.username}`} redirectTo="/" component={Profile} /> */}
           <ProtectedRoute path="*" redirectTo="/" component={NotFound} />
         </Switch>
-      </div>
+        {!this.props.token && <Footer />}
+      </MuiThemeProvider>
     )
   }
 }

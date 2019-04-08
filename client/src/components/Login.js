@@ -24,26 +24,32 @@ class Login extends Component {
     render() {
         // console.log(this.props.errMsg)
         return (
-            <form onSubmit={this.handleSubmit}>
-                <input 
-                    type="text" 
-                    onChange = {this.handleChange} 
-                    name="username" 
-                    value ={this.state.username} 
-                    placeholder="User Name"/>
-                <input 
-                    type="password" 
-                    onChange = {this.handleChange} 
-                    name="password" 
-                    value ={this.state.password} 
-                    placeholder="Password"/>
-                
-                <button className="btn">Login</button>
+            <div className="formContainer hoverable">
+                <form onSubmit={this.handleSubmit}>
+                    <input 
+                        type="text" 
+                        onChange = {this.handleChange} 
+                        name="username" 
+                        value ={this.state.username} 
+                        placeholder="User Name"/>
+                    <input 
+                        type="password" 
+                        onChange = {this.handleChange} 
+                        name="password" 
+                        value ={this.state.password} 
+                        placeholder="Password"/>
+                    
+                    <button className="btn black hoverable ">Login</button>
 
-                <p style={{color: "red"}}>{this.props.errMsg}</p>
-            </form>
+                    <p style={{color: "red"}}>{this.props.errMsg}</p>
+                </form>
+            </div>
         )
     }
 }
 
 export default withData(Login)
+
+
+
+

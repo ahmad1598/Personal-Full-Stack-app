@@ -21,8 +21,7 @@ const userSchema = new Schema ({
         trim: true
     },
     photo:{
-        data: Buffer,
-        contentType: String
+        data: String
     },
     about:{
         type: String,

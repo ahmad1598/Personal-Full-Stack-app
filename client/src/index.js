@@ -6,6 +6,7 @@ import DataProvider from './context/DataProvider.js'
 // import PostProvider from './context/PostProvider.js'
 // import UserProvider from './context/UserProvider.js'
 import './style/Style.css'
+
 ReactDOM.render(
     <BrowserRouter>
         <DataProvider>

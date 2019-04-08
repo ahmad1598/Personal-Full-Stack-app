@@ -10,16 +10,6 @@ const multer = require('multer')
 
 const router = express.Router()
 
-userRouter.get('/photo/:userId', (req,res,next) => {
-    if(req.profile.photo.data){
-        res.set("Content-type", req.profile.photo.contentType)
-        return res.send(req.profile.photo.data)
-    }
-    next()
-}) 
-// userRouter.get('/defaultphoto',(req,res) => {
-//     return res.sendFile(process.cwd()+profileImage)
-// })
 
 //Get All user
 //only if the user logged in
@@ -61,6 +51,29 @@ userRouter.put('/unfollow' , async (req,res,next) => {
     }
 })
 
+userRouter.get('/following',async (req,res,next) => {
+    try{
+        const user = await User.findOne({_id: req.user._id})
+        const users = await User.find({_id: {$in: user.following}})
+        return res.status(200).send(users)
+    }catch(err){
+        res.status(500)
+        return next(err)
+
+    }
+})
+
+userRouter.get('/followers',async (req,res,next) => {
+    try{
+        const user = await User.findOne({_id: req.user._id})
+        const users = await User.find({_id: {$in: user.followers}})
+        return res.status(200).send(users)
+    }catch(err){
+        res.status(500)
+        return next(err)
+
+    }
+})
 
 //CREATE A NEW USER
 userRouter.post('/', (req,res,next) => {
@@ -108,17 +121,29 @@ userRouter.delete('/:_id' , (req, res) => {
     })
 })
 
+//Get Photo
+
 
 //UPDATE A USER
-userRouter.put('/:_id', (req, res, next) => {
-    User.findOneAndUpdate({_id: req.params._id} , req.body , { new: true }, (err, updatedUser) => {
-        if(err){
+userRouter.put('/', (req, res, next) => {
+    User.findOneAndUpdate({_id: req.user._id}, req.body, {new: true}, (err, updatedUser) => {
+        if(err) {
             res.status(500)
             return next(err)
         }
-        return res.status(201).send({updatedUser:updatedUser.withoutPassword()})
+        return res.status(201).send(updatedUser)
     })
 })
+
+// userRouter.put('/:_id', (req, res, next) => {
+//     User.findOneAndUpdate({_id: req.params._id} , req.body , { new: true }, (err, updatedUser) => {
+//         if(err){
+//             res.status(500)
+//             return next(err)
+//         }
+//         return res.status(201).send(updatedUser)
+//     })
+// })
 
 //return res.status(200).send({token: token, user: user.withoutPassword(), success: true})
 
@@ -150,15 +175,16 @@ userRouter.put('/:_id', (req, res, next) => {
 //     })
 // })
 
-userRouter.get('/photo/:userId',(req,res,next) => {
-    if(req.profile.photo.data){
-        res.set("Content-Type", req.profile.photo.contentType)
-        return res.send(req.profile.photo.data)
-      }
-      next()
-})
 
-
+userRouter.get('/photo/:userId', (req,res,next) => {
+    User.findOne({_id: req.body._id} , (err, foundUser) => {
+        if (err) {
+            res.status(500)
+            return res.send(err)
+        }
+        return res.status(200).send(foundUser)
+    })
+}) 
 
 
 

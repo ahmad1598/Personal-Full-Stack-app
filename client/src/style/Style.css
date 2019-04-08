@@ -4,12 +4,20 @@
 }
 
 body{
-    /* animation: Gradient 20s ease-out infinite;
-    background-image: url(https://cdn-images-1.medium.com/max/1600/1*xJ7ew1IqICMwkqKNwD0J-w.jpeg); */
-    background-size: auto;
-    background-blend-mode: color;
-    background-color: #f1f1f1ad;
-
+        font-family: Cambria, Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif;
+        /* background: rgba(65, 0, 51, 0.555); */
+        background-blend-mode: luminosity;
+        background-image: url("https://images.unsplash.com/photo-1475783006851-1d68dd683eff?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"),
+        /* url("https://images.unsplash.com/photo-1489769002049-ccd828976a6c?ixlib=rb-1.2.1&auto=format&fit=crop&w=2714&q=80"), */
+        /* url("https://images.unsplash.com/photo-1508905475152-c325323ac955?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"), */
+                        url("https://images.unsplash.com/photo-1496989663690-1d3c84c8255f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60");
+        background-size: cover;
+        background-position: top;
+        font-weight: 400;
+        font-size: 15px;
+        color: #1d3c41;
+        overflow-y: scroll;
+        font-family: 'Julius Sans One', sans-serif;
 }
 @keyframes Gradient {
 	0% {
@@ -22,8 +30,20 @@ body{
 		background-position: 0% 50%
 	}
 } 
+
+#background-video{
+
+    height: 100%;
+    width: 100%;
+    float: left;
+    top: 0;
+    padding: none;
+    position: fixed; /* optional depending on what you want to do in your app */
+    }
+    
 .container{
     width: 80%;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
 }
 
 .HomeLogincontainer{
@@ -33,16 +53,26 @@ body{
     height: 100vh;
 }
 .HomeLogoutcontainer{
-    width: 100vw;
-    height: 100vh;
-    background-color: #ececec;
-    /* background-image: url("https://images.unsplash.com/photo-1554147090-e1221a04a025?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1931&q=80");
-    opacity: .9; */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 70px;
+        color: #003a70;
+        width: 50%;
+        margin: auto;
+        margin-top: 100px;
+        padding: 20px;
+        background: linear-gradient(-45deg, rgba(238, 118, 82, 0.753),  rgba(231, 60, 126, 0.63), rgba(35, 165, 213, 0.575), #23D5AB);
+        background-size: 400% 400%;
+        animation: Gradient 10s ease infinite;
+        box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.75);
 }
-.nav-wrapper.left{
+.left a{
     margin-left: 20px;
+    color: #06252f;
+    transition: background-color .3s;
 }
-.nav-wrapper.left a {
+.right a {
     margin-right: 20px;
     color: #06252f;
     transition: background-color .3s;
@@ -53,19 +83,38 @@ nav {
     background-color: #ffffffa6;
     width: 100%;
 }
-form{
-    width: 50%;
+.formContainer{
+    width: 40%;
     margin: auto;
     padding: 40px;
-    margin-top: 40px;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    margin-top: 100px;
+    color: #003a70;
+    background: linear-gradient(-45deg, rgba(238, 118, 82, 0.575),  rgba(231, 60, 126, 0.315), rgba(35, 165, 213, 0.575), #23D5AB);
+	background-size: 400% 400%;
+	animation: Gradient 10s ease infinite;
+    box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.75);
 }
+
+::placeholder {
+	color: #003a70;
+	opacity: 1;
+}
+
+
+button.btn.black {
+    margin-top: 20px;
+    width: 200px;
+}
+
 .row .col.s6 {
     width: 50%;
     margin-left: auto;
     left: auto;
     right: auto;
     padding: 40px;
+}
+.row h4{
+    color: whitesmoke;
 }
 
 .followUser{
@@ -85,7 +134,6 @@ form{
 .profileCard {
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
     width: 60%;
-    /* margin: auto; */
     padding: 30px;
     margin-top: 40px;
 }
@@ -103,55 +151,101 @@ form{
 }
 
 form.col.s6.newPost {
-    width: 613px;
+    width: 588px;
+    background-color: #e393b74f;
+    box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.75);
 }
 .follow{
     display: flex;
     justify-content: space-between;
     padding: 5px;
+    margin-bottom: 3px;
     align-items: center;
+    background: linear-gradient(-45deg, rgba(238, 118, 82, 0.753),  rgba(231, 60, 126, 0.63), rgba(35, 165, 213, 0.575), #23D5AB);
+    background-size: 400% 400%;
+    animation: Gradient 10s ease infinite;
+    box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.75);
     
 }
+p.card-title {
+    padding: 15px;
+}
+
+.row .col.push-s2 {
+    background-color: #afafaf7a;
+}
+
 .follow img{
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    /* float: left; */
 }
-.newPost {
-    /* height: 300px; */
+
+.card-panel.col.s5.push-m1 {
+    background-color: #e393b74f;
+    box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.75);
 }
+.postsContainer{
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #e393b788;
+    box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.75);
+}
+
 .newPost img{
     width: 60px;
     height: 60px;
     float: left;
     border-radius: 50%;
     margin-right: 50px;
-    /* float: left; */
+}
+.row{
+    background-color: #003a702e;
 }
 
 .newPostUserInfo{
     display: flex;
-    /* justify-content: space-between; */
     padding: 5px;
     position: absolute;
-    margin-left: 0px;
-    width: 614px;
-    margin-top: 0px;
+    margin-left: 737px;
+    width: 300px;
+    justify-content: center;
     align-items: center;
-    background-color: antiquewhite;
+    color: whitesmoke;
+    /* margin-top: -32px; */
+    align-items: center;
+    position: absolute;
+    border-radius: 10px;
+    box-shadow: 0px 0px 4px 2px rgba(255, 255, 255);
 }
 .newPostUserInfo img{
-    width: 60px;
-    height: 60px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     margin-right: 30px;
+    box-shadow: 0px 0px 15px 2px rgba(0,0,0,0.75);
 }
 
 .postButtons{
     display: flex;
     justify-content: space-around;
     align-items: center;
+}
+.postButtons p {
+    color: rgb(65, 65, 65);
+    font-size: 12px;
+    font-family: 'Julius Sans One', sans-serif;
+}
+i.material-icons {
+    cursor: pointer;
+}
+.postsContainer h4 {
+    color: rgb(0, 0, 0);
+    font-family: 'Julius Sans One', sans-serif;
+}
+.postsContainer a {
+    /* color: rgb(0, 0, 0); */
+    font-family: 'Julius Sans One', sans-serif;
 }
 
 .ProfileForm{
@@ -160,36 +254,111 @@ form.col.s6.newPost {
     margin: auto;
     padding: 10px;
     margin-top: 50px;
+    background-color: beige;
     /* display: flex; */
     /* justify-content: space-between; */
     align-items: center;
 }
 .ProfileForm img {
-    width: 60px;
-    height: 60px;
+    width: 100px;
+    height: 100px;
     float: left;
+    position: absolute;
     border-radius: 50%;
-    margin-right: 30px;
-    margin-left: 60px;
+    margin-top: -46px;
+    margin-left: 250px;
+    box-shadow: 0px 4px 6px 1px rgb(0, 0, 0);
+}
+.ProfileForm p{
+    padding: 10px;
+}
+
+.profileButtons {
+    position: absolute;
+    margin-top: -70px;
+    margin-left: 400px;
+}
+.profileButtons a{
+    margin: 10px;
+    width: 120px;
 }
 
 .EditProfile{
+    background-color: beige;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
     width: 50%;
-    padding: 10px;
+    padding: 60px;
     margin: auto;
-    margin-top: 20px;
+    margin-top: 50px;
     display: grid;
+    color: #000;
     justify-content: center;
 }
 .EditProfile img{
-    width: 60px;
-    height: 60px;
+    width: 100px;
+    height: 100px;
+    float: left;
+    position: absolute;
     border-radius: 50%;
-    
-
+    margin-top: 10px;
+    margin-left: 300px;
+}
+.EditProfile input{
+    opacity: 0;
 }
 
 .EditProfile h5{
     text-align: center;
+}
+.EditProfile button{
+    margin-top: 40px;
+    width: 250px;
+    background-color: #003a70a8;
+}
+.EditProfile label{
+    margin-top: 10px;
+    text-align: center;
+    width: 250px;
+}
+
+.EditProfile .editProfileForm{
+    margin-top: 10px;
+    width: 250px;
+}
+
+
+
+.page-footer  {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    min-height: 50px;
+	bottom: 0px;
+	overflow: hidden;
+	position: fixed;
+	width: 100vw;
+	padding: 2px;
+	text-align: center;
+    /* background-color:#48272e8f; */
+    background-color: #b9b8b79e;
+    font-family: 'Julius Sans One', sans-serif;
+    box-shadow: 0px 0px 15px 2px rgba(0,0,0,0.75);
+}
+
+
+.page-footer img {
+    width: 30px;
+    height: 30px;
+    margin: 15px;
+    opacity: .5;
+}
+.page-footer img:hover {
+    opacity: 1;
+}
+.page-footer p {
+    margin: 15px;
+    opacity: .5;
+}
+.page-footer p:hover {
+    opacity: 1;
 }

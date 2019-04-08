@@ -8,7 +8,7 @@ class Posts extends Component {
         this.state ={
             editToggle: false,
             likes:false,
-            disLikes:false,
+            dislike:false,
             comment:false,
             commentText:"",
             text:props.text1,
@@ -23,11 +23,9 @@ class Posts extends Component {
     }
     disLikeToggler = () => {
         this.setState(prevState => ({
-            disLikes : !prevState.likes
+            dislike : !prevState.dislike
         }))
     }
-
-    
 
     commentToggler = () => {
         this.setState(prevState => ({
@@ -43,9 +41,9 @@ class Posts extends Component {
         this.toggler()
     }
 
-    handleDislike = (_id) => {
+    handleDislikes = (_id) => {
         const update = {
-            disLikes: !this.state.likes
+            dislike: !this.state.dislike
         }
         this.props.handleDislike(_id, update)
         this.disLikeToggler()
@@ -101,36 +99,37 @@ class Posts extends Component {
         <>
             { !this.state.editToggle 
                 ?
-                <>
+                <div className="postsContainer">
                     <h4 key={_id}>{postText}</h4>
                     <div className="postButtons">
-                        <span>Posted At: {(new Date(created)).toDateString()} </span> 
+                        <p>Posted At: {(new Date(created)).toDateString()} </p> 
                         <span 
                             className="" 
                             style={{marginLeft:10}} 
                             onClick={() => {this.handleLikes(_id)}}> 
-                            {!likes ? <i className="material-icons">favorite_border</i> : <i className="material-icons red-text">favorite</i>}
+                            {!likes ? <i className="material-icons">thumb_up</i> : <i className="material-icons blue-text">thumb_up</i>}
                             {likes}
                         </span>  
-                        <button 
-                            className="btn red" 
+                        <span 
+                            className="" 
                             style={{marginLeft:10}} 
-                            onClick={() => {this.handleDislike(_id)}}> 
-                            
+                            onClick={() => {this.handleDislikes(_id)}}> 
+                            {!dislike ? <i className="material-icons">thumb_down</i> : <i className="material-icons red-text">thumb_down</i>}
                             {/* <i className="material-icons">comment</i>  */}
-                            <i className="material-icons">thumb_down</i> 
+                            {/* <i className="material-icons">thumb_down</i>  */}
                             {dislike}
-                        </button>  
+                        </span>  
                         <a href="#"         
                             onClick={() => this.props.deletePost(_id, postText)}
-                            className="btn-floating btn-small pink accent-4">
-                            <i className="material-icons">delete</i>
+                            className="btn pink accent-4">
+                            Delete
+                            {/* <i className="material-icons">delete</i> */}
                         </a>
                         
                         <a href="#" 
                             onClick={this.editToggler} 
-                            className="btn-floating btn-small blue darken-3">
-                            <i className="material-icons">edit</i>
+                            className="btn blue darken-3">Edit
+                            {/* <i className="material-icons">edit</i> */}
                         </a>
                     </div>  
 
@@ -144,12 +143,12 @@ class Posts extends Component {
                     onChange={this.handleCommentChange}
                     placeholder="Add a comment..."
                     /> <br/>
-                    <button className="btn" onClick={this.handleCommentSubmit}>POST</button>
+                    <button className="btn cyan black-text" onClick={this.handleCommentSubmit}>POST</button>
 
                     {/*  YOU CAN SHOW ALL COMMENTS HERE - USE MAP AND GO OVER COMMENTS ARRAY  */}
 
             {/* </form> */}
-            </>
+            </div>
 
             :
             <div>
