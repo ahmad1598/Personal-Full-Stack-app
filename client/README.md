@@ -3,12 +3,9 @@
  I need to work on these parts : 
 
 
-- Home
-    - change users picture from static to dynamic - should be read from DB
-
     - User to Follow
         - work on Follower Button
-        - see if you can put eye button for all the user, to give the other user's access to see the overview profile
+        - see if you can put eye icons button for all the users, to give the other user's access to see the overview profile
     
     - comments
         - make post request for comments
@@ -21,5 +18,31 @@
 
 
 
-Software engineer - tech assesment - 17$
-help desk team - 15$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

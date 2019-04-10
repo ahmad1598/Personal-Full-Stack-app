@@ -49,7 +49,6 @@ class Posts extends Component {
         this.disLikeToggler()
     }
 
-
     editToggler = () => {
         this.setState(prevState => ({
             editToggle : !prevState.editToggle
@@ -85,14 +84,10 @@ class Posts extends Component {
             text: this.state.text
         }
         this.props.updatePost(this.props._id, newPost)
-        // console.log(this.state.text)
         this.editToggler()
     }
 
-
-
     render(){
-        // console.log(this.props)
         const {_id, postText, created, likes, dislike} = this.props
 
     return(
@@ -121,14 +116,14 @@ class Posts extends Component {
                         </span>  
                         <a href="#"         
                             onClick={() => this.props.deletePost(_id, postText)}
-                            className="btn pink accent-4">
+                            className="btn delete">
                             Delete
                             {/* <i className="material-icons">delete</i> */}
                         </a>
                         
                         <a href="#" 
                             onClick={this.editToggler} 
-                            className="btn blue darken-3">Edit
+                            className="btn edit">Edit
                             {/* <i className="material-icons">edit</i> */}
                         </a>
                     </div>  
@@ -141,9 +136,9 @@ class Posts extends Component {
                     name="commentText" 
                     value = {this.state.commentText} 
                     onChange={this.handleCommentChange}
-                    placeholder="Add a comment..."
+                    placeholder="Add a comment..." disabled
                     /> <br/>
-                    <button className="btn cyan black-text" onClick={this.handleCommentSubmit}>POST</button>
+                    <button className="btn cyan lighten-4 black-text" onClick={() => alert("Comment feature will be added soon...")}>POST</button>
 
                     {/*  YOU CAN SHOW ALL COMMENTS HERE - USE MAP AND GO OVER COMMENTS ARRAY  */}
 

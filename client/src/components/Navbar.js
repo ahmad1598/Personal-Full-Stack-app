@@ -7,8 +7,6 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import HomeIcon from '@material-ui/icons/Home';
-import MenuIcon from '@material-ui/icons/Menu';
-import red from '@material-ui/core/colors/red';
 
 const styles = {
     root: {
@@ -47,7 +45,6 @@ const Navbar = withRouter((props) => {
                                     <HomeIcon />
                                 </IconButton>
                             </Link>
-                            {/* <Link to = "/" >HOME</Link> */}
                             <Link to = "/signup">
                                 <Button style={isActive(props.history, "/signup")}>SIGN UP</Button>
                             </Link>
@@ -72,39 +69,10 @@ const Navbar = withRouter((props) => {
                         </>
                     }
 
-                {/* <Button color="inherit">Login</Button> */}
                 </Toolbar>
             </AppBar>
     
     )
-        {/* <div className="container hoverable ">
-            <div className="col s12">
-                <nav className="nav-wrapper" >
-                    
-                    <div className="left" >
-                    <a>VS Social</a>
-                    </div>
-                        <div className="right" >
-                        {!token
-                        ?
-                            <>
-                                <Link className="" to = "/" >HOME</Link>
-                                <Link to = "/signup">SIGN UP</Link>
-                                <Link to = "/login">LOGIN</Link>
-                            </>
-                        :
-                            <>
-                                <Link to = {`/${user.username}/userhome`} >HOME</Link>
-                                <Link to = {`/${user.username}/profile`}>MY PROFILE</Link>
-                                <Link to = "/" onClick={logout}>LOGOUT</Link>
-                            </>
-                        }
-                        
-                    </div>
-                </nav>
-            </div>
-        </div> */}
-    // )
 })
 
 

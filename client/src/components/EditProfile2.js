@@ -45,7 +45,6 @@ class EditProfile extends Component {
         username: this.state.name,
         email:this.state.email,
         // url:this.state.url
-
       }
       this.props.updateUser(this.state.user._id, newInfo)
       this.setState({'redirectToProfile': true})

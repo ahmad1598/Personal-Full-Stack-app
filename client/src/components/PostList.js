@@ -1,13 +1,11 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import {withStyles} from 'material-ui/styles'
-import Post from './Post'
+
 
 class PostList extends Component {
   constructor(){
     super()
     this.state={
-      //I only add text for now but late I will add photo for uploading as well
       text:""
     }
   }

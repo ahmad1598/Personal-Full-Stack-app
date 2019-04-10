@@ -38,8 +38,8 @@ class Signup extends Component{
             <div className="formContainer hoverable ">
                 <form onSubmit = {this.handleSubmit}>
                     <input type="text" onChange = {this.handleChange} name="username" value={this.state.username} placeholder="User Name"/> 
-                    <input type="text" onChange = {this.handleChange} name="password" value={this.state.password} placeholder="Password"/> 
-                    <input type="text" onChange = {this.handleChange} name="email" value={this.state.email} placeholder="Email Address"/> 
+                    <input type="password" onChange = {this.handleChange} name="password" value={this.state.password} placeholder="Password"/> 
+                    <input type="email" onChange = {this.handleChange} name="email" value={this.state.email} placeholder="Email Address"/> 
                     <button className="btn black hoverable">Sign Up</button>
                     {this.props.errMsg && <p style={{color: "red"}}>{this.props.errMsg}</p>}
                 </form>

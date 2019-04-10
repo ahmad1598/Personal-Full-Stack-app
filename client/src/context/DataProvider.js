@@ -134,15 +134,26 @@ class DataProvider extends Component {
         }).catch(err => console.log(err))
     }
 
+    //Delete Post
     deletePost = (_id, title) => {
         if(window.confirm(`Are you sure you want to delete ${title} ? `)){
-        // if (answer) {
             dataAxios.delete("/api/posts/" + _id).then(response => {
                 this.setState(prevState => ({
                     posts: prevState.posts.filter(post => post._id !== _id)
                 }))
             })
         } 
+    }
+
+    //Delete User
+    deleteUser = (_id) => {
+        if(window.confirm(`We will miss you! Are you sure you want to delete your account?`)){
+            dataAxios.delete("/api/users/" + _id).then(response => {
+                this.setState(prevState => ({
+                    users: prevState.users.filter(user => user._id !== _id)
+                }),() => this.logout())
+            })
+        }
     }
 
     updatePost = (_id,update) => {
@@ -203,25 +214,26 @@ class DataProvider extends Component {
         return(
             <DataContext.Provider
                 value={{
+                    login: this.login,
+                    logout:this.logout,
+                    signup: this.signup,
+                    user: this.state.user,
+                    addPost: this.addPost,
                     users: this.state.users,
                     posts: this.state.posts,
                     token: this.state.token,
                     errMsg:this.state.errMsg,
-                    isLoggedIn: this.state.isLoggedIn,
-                    user: this.state.user,
-                    signup: this.signup,
-                    login: this.login,
-                    logout:this.logout,
-                    addPost: this.addPost,
                     getPosts: this.getPosts,
                     getUsers: this.getUsers,
-                    handleLike: this.handleLike,
-                    handleDislike:this.handleDislike,
                     deletePost:this.deletePost,
                     updatePost:this.updatePost,
                     updateUser:this.updateUser,
                     followUser:this.followUser,
-                    following:this.following
+                    following:this.following,
+                    deleteUser:this.deleteUser,
+                    handleLike: this.handleLike,
+                    handleDislike:this.handleDislike,
+                    isLoggedIn: this.state.isLoggedIn
                 }}>
                 {this.props.children}
             </DataContext.Provider>

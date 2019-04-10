@@ -99,7 +99,7 @@ userRouter.get('/', (req,res) => {
 })
 
 //GET ONE USER
-userRouter.get(':/_id', (req,res) => {
+userRouter.get('/:_id', (req,res) => {
     User.findOne({_id: req.params._id} , (err, foundUser) => {
         if(err){
             res.status(500)
@@ -120,9 +120,6 @@ userRouter.delete('/:_id' , (req, res) => {
         return res.status(202).send(`Successfully deleted User with ID ${req.params._id}`)
     })
 })
-
-//Get Photo
-
 
 //UPDATE A USER
 userRouter.put('/', (req, res, next) => {

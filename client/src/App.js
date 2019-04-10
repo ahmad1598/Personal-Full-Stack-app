@@ -22,7 +22,7 @@ const theme = createMuiTheme({
   palette: {
     primary: {
     light: '#2196f3', 
-    main: '#1e88e5', //Main Color
+    main: '#455a64', //Main Color
     dark: '#1565c0',
     contrastText: '#fff',
   },
@@ -39,18 +39,13 @@ const theme = createMuiTheme({
 });
 
 class App extends Component {
-  // constructor(props){
-  //   super(props)
-  // }
+
   render() {
     return (
       <MuiThemeProvider theme={theme}>
-        {/* {this.props.token && <Navbar {...this.props}/> } */}
         <Navbar {...this.props}/>
-        {/* <Menu /> */}
         <Switch>
           <Route exact component={Home} path="/" />
-          {/* <Route path="/users"  component={Users} /> */}
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
           {/* <PrivateRoute path="/user/edit/:userId" component={EditProfile} /> */}

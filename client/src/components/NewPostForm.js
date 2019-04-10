@@ -10,7 +10,7 @@ const NewPostForm = props => {
                 value = {text} 
                 onChange={handleChange}
                 placeholder="Share your thoughts ..."/>
-            <button className="btn black">{btnText}</button>
+            <button className="btn white black-text newPostBtn">{btnText}</button>
         </form>
     )
 }

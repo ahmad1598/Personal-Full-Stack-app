@@ -6,10 +6,8 @@ class Login extends Component {
         this.state = {
             username:'',
             password:''
-            // errMsg:''
         }
     }
-
 
     handleChange = e => {
         const {name , value} = e.target
@@ -22,7 +20,6 @@ class Login extends Component {
     }
 
     render() {
-        // console.log(this.props.errMsg)
         return (
             <div className="formContainer hoverable">
                 <form onSubmit={this.handleSubmit}>

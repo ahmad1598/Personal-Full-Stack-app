@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {storage} from '../firebase';
 import {withData} from '../context/DataProvider'
-
+import {Redirect} from 'react-router-dom'
 class EditProfile extends Component {
   constructor(props) {
     super(props);
@@ -14,8 +14,8 @@ class EditProfile extends Component {
         user: JSON.parse(localStorage.getItem("user")) || "",
         redirectToProfile: false,
         error: '',
-        
     }
+    
     this.handleChange = this
       .handleChange
       .bind(this);
@@ -27,6 +27,25 @@ class EditProfile extends Component {
       this.setState(() => ({image}));
     }
   }
+
+  handleInputChange =  e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+  }
+
+  handleInputSubmit = e => {
+    e.preventDefault()
+    const newInfo = {
+      username: this.state.username,
+      email:this.state.email,
+      // url:this.state.url
+    }
+    this.props.updateUser(newInfo)
+    this.setState({'redirectToProfile': true})
+
+}
+
   handleUpload = () => {
       const {image} = this.state;
       const uploadTask = storage.ref(`images/${image.name}`).put(image);
@@ -51,29 +70,23 @@ class EditProfile extends Component {
     });
   }
   render() {
-    const style = {
-      height: '100vh',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center'
-    };
+    if (this.state.redirectToProfile) {
+      return (<Redirect to={`/${this.state.username}/profile`}/>)
+      }
+
     return (
-
-      <div className=" EditProfile card">
-      {/* <progress value={this.state.progress} max="100"/> */}
-      <br/>
-        <img src={this.props.user.photo || 'http://via.placeholder.com/400x300'} alt="Uploaded images" height="300" width="400"/>
-        <button className="btn">Change Profile Photo<input type="file" onChange={this.handleChange}/></button>
-        <label onClick={this.handleUpload}>Upload</label>
+      <div className="editProfileContainer">
+        <div className=" EditProfile card">
         <br/>
-
-      
-          Name: <input type="text" name="username" value={this.state.username} onChange={this.handleChange}  />
-          Email: <input type="text" name="email" value={this.state.email} onChange={this.handleChange} />
-
-        <br/>
-        <button className="btn" onClick={this.handleSubmit} >SUBMIT</button>
+          <img src={this.props.user.photo || 'http://via.placeholder.com/400x300'} alt="Uploaded images" height="300" width="400"/>
+          <div className="upload"><input type="file" onChange={this.handleChange} id="upload"/></div>
+          <label onClick={this.handleUpload}>Upload</label>
+          <br/>
+            Name: <input type="text" name="username" value={this.state.username} onChange={this.handleInputChange}  />
+            Email: <input type="text" name="email" value={this.state.email} onChange={this.handleInputChange} />
+          <br/>
+          <button className="btn" onClick={this.handleInputSubmit} >SUBMIT</button>
+        </div>
       </div>
     )
   }

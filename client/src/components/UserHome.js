@@ -2,7 +2,6 @@ import React,{Component} from 'react'
 import {withData} from '../context/DataProvider.js'
 import NewPostForm from './NewPostForm.js';
 import Posts from './Posts.js'
-// import { Button } from 'material-ui';
 class UserHome extends Component{
     constructor(props){
         super(props)
@@ -13,7 +12,6 @@ class UserHome extends Component{
 
     componentDidMount(){
         this.props.getPosts()
-        // this.props.getUsers()
     }
 
     handleChange = e => {
@@ -40,7 +38,7 @@ class UserHome extends Component{
 
     render(){
         return(
-            <div className="row">
+            <div className="row userHome">
                 <div className="col s12 offset-s1">
                     <h4>Welcome { this.props.user.username.charAt(0).toUpperCase() + this.props.user.username.slice(1) }</h4>
                     <div className="newPostUserInfo">
@@ -72,12 +70,12 @@ class UserHome extends Component{
                 </div>
 
                 <div className=" card-panel col s3 push-s2">
-                        <h6 className="card-title white-text">Suggestions For You</h6>
+                        <h6 className="card-title black-text">Suggestions For You</h6>
                         {this.props.users.map(user => 
                             <div className="follow" key={user._id}>
                                 <img src={user.photo || "https://institutogoldenprana.com.br/wp-content/uploads/2015/08/no-avatar-25359d55aa3c93ab3466622fd2ce712d1.jpg"} alt=""/>
                                 <h6>{ user.username.charAt(0).toUpperCase() + user.username.slice(1) }</h6>
-                                <button className="btn blue" onClick={() => this.props.followUser(user._id)}>Follow</button> 
+                                <button className="btn white black-text" onClick={() => this.props.followUser(user._id)}><i className="material-icons black-text">add</i>Follow</button> 
                             </div>
                         )
                         }

@@ -43,7 +43,6 @@ postRouter.delete('/:_id', (req, res) => {
     })
 })
 
-
 //UPDATE A POST
 postRouter.put('/:_id', (req, res, next) => {
     Post.findOneAndUpdate({_id: req.params._id} , req.body , { new: true }, (err, updatedPost) => {
