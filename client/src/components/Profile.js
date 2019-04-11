@@ -9,7 +9,8 @@ class Profile extends Component {
     }
     componentDidMount(){
         this.props.getPosts()
-        this.props.following(this.props)
+        this.props.getFollowing()
+        this.props.getFollower()
     }
 
     render(){
@@ -22,8 +23,8 @@ class Profile extends Component {
                     <h4>{ this.props.user.username.charAt(0).toUpperCase() + this.props.user.username.slice(1) }</h4>
                     
                     <div className="profileButtons">
-                            <a href="#" className="btn delete" onClick={() => this.props.deleteUser(this.props.user._id)}>Delete</a>
-                            <Link className="btn edit" to={`/editprofile`}>Edit</Link>
+                            <a href="#" className="btn delete " onClick={() => this.props.deleteUser(this.props.user._id)}>Delete</a>
+                            <Link className="btn edit " to={`/editprofile`}>Edit</Link>
                     </div>
                     <hr/>
                         <p>Joined: {(new Date(this.props.user.created)).toDateString()} </p>
@@ -33,7 +34,6 @@ class Profile extends Component {
                                 {this.props.posts.map(post => 
                                     <>
                                         <h5 key={post._id}>{post.text}</h5>
-                                        
                                             <p>Posted At: {(new Date(post.created)).toDateString()} </p> 
 
                                             {/* <a href="#"      
@@ -54,11 +54,26 @@ class Profile extends Component {
                     )}
 
                             </Tab>
+
                             <Tab title="Followers" >
-                                Followers
+                            <h4 className="card-title center">Followers</h4> 
+                                
+                                {this.props.followers.map(user => 
+                                <div className="follow profileFollowing">
+                                    <img src={user.photo || "https://institutogoldenprana.com.br/wp-content/uploads/2015/08/no-avatar-25359d55aa3c93ab3466622fd2ce712d1.jpg"} />
+                                    <h6>{user.username}</h6>
+                                </div>
+                                )}
                             </Tab>
                             <Tab title="Following">
-                                Following
+                                <h4 className="card-title center">Following</h4> 
+                                {this.props.following.map(user => 
+                                <div className="follow profileFollowing">
+                                    <img src={user.photo || "https://institutogoldenprana.com.br/wp-content/uploads/2015/08/no-avatar-25359d55aa3c93ab3466622fd2ce712d1.jpg"} />
+                                    <h6>{user.username}</h6>
+                                    <button className="btn white black-text" onClick={() => this.props.unFollowUser(user._id)}>Unfollow</button> 
+                                </div>
+                                )}
                             </Tab>
                         </Tabs> 
                 </div>
@@ -68,15 +83,3 @@ class Profile extends Component {
 }
 
 export default withData(Profile)
-
-
-// {this.props.user.following.map(follower => 
-//     <>
-//         <div className="follow">
-//             <img src={"https://institutogoldenprana.com.br/wp-content/uploads/2015/08/no-avatar-25359d55aa3c93ab3466622fd2ce712d1.jpg"} alt=""/>
-//             {/* <h6>{follower.username}</h6> */}
-//                                         {/* FIX ME - Add clickable functionality to Follow Button */}
-//             <button className="btn blue" onClick={() => this.props.followUser(follower._id)}>UnFollow</button> 
-//         </div>
-//     </>
-// )} 

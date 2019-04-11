@@ -5,10 +5,10 @@
 
 body{
         font-family: Cambria, Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif;
-        background: rgba(43, 43, 43, 0.808);
+        /* background: rgba(43, 43, 43, 0.808); */
         background-blend-mode: darken;
-        background-image: 
-            url("https://images.unsplash.com/photo-1475783006851-1d68dd683eff?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80");
+        /* background-image: 
+            url("https://images.unsplash.com/photo-1475783006851-1d68dd683eff?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"); */
         background-size: cover;
         background-position: top;
         font-weight: 400;
@@ -121,6 +121,13 @@ button.btn.white.newPostBtn {
     box-shadow: 0 0 0 1px rgba(0,0,0,.15), 0 2px 3px rgba(0,0,0,.2);
     transition: box-shadow 83ms;
 }
+.formContainer input{
+    color: white;
+}
+span.MuiButton-label-99 {
+    color: white;
+}
+
 
 .col.s6.followUser {
     width: 40%;
@@ -152,7 +159,7 @@ button.btn.white.newPostBtn {
 
 form.col.s6.newPost {
     width: 588px;
-    background-color: #e6e6e633;
+    background-color: #b2ebf3;
     box-shadow: 0 0 0 1px rgba(0,0,0,.15), 0 2px 3px rgba(0,0,0,.2);
     transition: box-shadow 83ms;
 }
@@ -166,8 +173,20 @@ form.col.s6.newPost {
     /* background: linear-gradient(-45deg, rgba(35, 165, 213, 0.575), rgb(255, 255, 255)); */
     /* background-size: 400% 400%; */
     /* animation: Gradient 10s ease infinite; */
-    box-shadow: 0 0 0 1px rgba(0,0,0,.15), 0 2px 3px rgba(0,0,0,.2);
+    /* box-shadow: 0 0 0 1px rgba(0,0,0,.15), 0 2px 3px rgba(0,0,0,.2); */
+    border-bottom: 1px dotted gray;
     transition: box-shadow 83ms;
+}
+
+.profileFollowing{
+    display: flex;
+    justify-content: space-around;
+    padding: 25px;
+    /* margin-bottom: 10px; */
+}
+.profileFollowing img{
+    width: 30px;
+    height: 60px;
 }
 
 p.card-title {
@@ -175,7 +194,16 @@ p.card-title {
 }
 
 .row .col.push-s2 {
-    background-color: whitesmoke;
+    background-color: #b2ebf3;
+}
+
+.follow button {
+    background-color: #ffffffbf;
+    border: 1px solid #007effc9;
+}
+
+.follow button:hover{
+    background-color: #b2ebf3;
 }
 
 .follow img{
@@ -188,13 +216,13 @@ p.card-title {
 }
 
 .card-panel.col.s5.push-m1 {
-    background-color: whitesmoke;
+    /* background-color: whitesmoke; */
 }
 
 .postsContainer{
     padding: 10px;
     margin-bottom: 10px;
-    background-color: whitesmoke;
+    background-color: #b2ebf3;
     box-shadow: 0 0 0 1px rgba(0,0,0,.15), 0 2px 3px rgba(0,0,0,.2);
     transition: box-shadow 83ms;
 }
@@ -209,7 +237,8 @@ p.card-title {
 }
 
 .userHome{
-    background-color: #f5f5f5;
+    background-color: #fafafa;
+    width: 100vw;
 }
 
 .newPostUserInfo{
@@ -221,11 +250,12 @@ p.card-title {
     justify-content: center;
     align-items: center;
     color: #f5f5f5;
-    /* margin-top: -32px; */
     align-items: center;
     position: absolute;
     border-radius: 2px;
+    background-color: #b2ebf3;
     box-shadow: 0 0 0 1px rgba(0,0,0,.15), 0 2px 3px rgba(0,0,0,.2);
+    /* border-bottom: 1px dotted gray; */
     transition: box-shadow 83ms;
 }
 
@@ -329,11 +359,11 @@ i.material-icons {
     position: absolute;
     margin-left: 25%;
     margin-top: 50px;
-    background-color: whitesmoke;
+    background-color: #b2ebf3;
     align-items: center;
 }
 
-.ProfileForm img {
+.ProfileForm > img {
     width: 100px;
     height: 100px;
     float: left;
@@ -478,4 +508,219 @@ input#upload {
 
 .page-footer p:hover {
     opacity: 1;
+}
+
+/* @media only screen and (max-width: 1440px){
+    .MuiAppBar-colorPrimary-11 {
+        width: 147%;
+    }
+    .editProfileContainer{
+        width: 147%;
+    }
+    .profileContainer {
+        width: 147%;
+    }
+}
+
+@media only screen and (max-width: 2560px){
+    .MuiAppBar-colorPrimary-11 {
+        width: 147%;
+    }
+    .editProfileContainer{
+        width: 147%;
+    }
+    .profileContainer {
+        width: 147%;
+    }
+} */
+
+
+@media only screen and (max-width: 1380px){
+    .profileButtons .edit{
+        margin-left: 0px;
+        margin-top: 50px;
+        width: 100px;
+    }
+    .profileButtons .delete{
+        margin-left: -200px;
+        margin-top: 50px;
+        width: 100px;
+    }
+
+    .ProfileForm > img {
+        margin-top: -70px;
+        margin-left: 40%;
+    }
+    
+    .ProfileForm{
+        margin-left: 5%;
+        width: 80%;
+    }
+
+    .EditProfile{
+        width: 70%;
+    }   
+
+    .EditProfile input{
+        margin-left: 10%;
+    }
+    .EditProfile label{
+        margin-top: 100px;
+    }
+    /* .editProfileContainer{
+        width: 147%;
+    }
+    .MuiAppBar-colorPrimary-11 {
+        width: 147%;
+    }
+    .profileContainer {
+        width: 147%;
+    } */
+    
+ 
+}
+@media only screen and (max-width: 600px){
+
+    /* .editProfileContainer{
+        width: 147%;
+    } */
+
+    .profileButtons .edit{
+        margin-left: 20px;
+        margin-top: 35px;
+    }
+    .profileButtons .delete{
+        margin-left: -300px;
+        margin-top: 35px;
+    }
+    .ProfileForm{
+        margin-left: 5%;
+        width: 90%;
+    }
+
+    .ProfileForm > img {
+        margin-left: 70%;
+        width: 80px;
+        height: 80px;
+    }
+    .profileContainer h4{
+        font-size: 20px;
+        margin-bottom: 30px;
+    }
+
+
+    .EditProfile{
+        width: 90%;
+        padding: 30px;
+        margin-top: 50px;
+        margin-left: 5%;
+        justify-content: center;
+    }   
+
+    .EditProfile img{
+        width: 80px;
+        height: 80px;
+        margin-left: 150px;
+    }
+
+    .EditProfile input{
+        margin-left: -160px;
+    }
+    .EditProfile label{
+        margin-top: 100px;
+    }
+
+    /* .MuiAppBar-colorPrimary-11 {
+        width: 147%;
+    }
+    .profileContainer {
+        width: 147%;
+    } */
+
+    form.col.s6.newPost {
+        width: 330px;
+        margin-top: 130px;
+        margin-left: -10px;
+        margin-bottom: 20px;
+    }
+
+    .newPostUserInfo{
+        padding: 10px;
+        margin-left: -10px;
+        width: 330px;
+    }
+
+    .card-panel.col.s5.push-m1 {
+        padding: 10px;
+        margin-left: 35px;
+        width: 330px;
+        /* margin: auto; */
+    }
+
+    .card-panel.col.s5.push-m1 h4{
+        font-size: 19px;
+    }
+
+    .row .col.push-s2 {
+        margin-left: -35px;
+        width: 330px;
+    }
+
+    .postsContainer input{
+        width:200px;
+    }
+
+    a.btn.profileDelete, a.btn.profileEdit {
+        display: flex;
+        justify-content: center;
+        width: 50px;
+        font-size: 8px;
+        height: 30px;
+        margin-left: 10px;
+        align-items: center;
+    }
+    
+    .postButtons p{
+        font-size: 10px;
+    }
+
+    i.material-icons{
+        font-size: 20px;
+    }
+
+    .newPostUserInfo img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .HomeLogoutcontainer{
+        font-size: 34px;
+        width: 330px;
+        background-color: whitesmoke;
+    }
+    .page-footer {
+        color: #000;
+    }
+    .page-footer p{
+        opacity: 1;
+    }
+    .formContainer {
+        width: 80%;
+        color: white;
+    }
+
+    .formContainer input{
+        color: white;
+    }
+
+    ::placeholder {
+        color: #bdbdbd;
+        opacity: 1;
+    }
+    input#upload {
+       margin-left: -180px;
+       font-size: 10px;
+       
+    }
+
 }

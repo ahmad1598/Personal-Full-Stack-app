@@ -39,7 +39,7 @@ class UserHome extends Component{
     render(){
         return(
             <div className="row userHome">
-                <div className="col s12 offset-s1">
+                <div className="col s7 offset-s1">
                     <h4>Welcome { this.props.user.username.charAt(0).toUpperCase() + this.props.user.username.slice(1) }</h4>
                     <div className="newPostUserInfo">
                         <img src={this.props.user.photo || "https://institutogoldenprana.com.br/wp-content/uploads/2015/08/no-avatar-25359d55aa3c93ab3466622fd2ce712d1.jpg"} alt="" />
@@ -75,12 +75,11 @@ class UserHome extends Component{
                             <div className="follow" key={user._id}>
                                 <img src={user.photo || "https://institutogoldenprana.com.br/wp-content/uploads/2015/08/no-avatar-25359d55aa3c93ab3466622fd2ce712d1.jpg"} alt=""/>
                                 <h6>{ user.username.charAt(0).toUpperCase() + user.username.slice(1) }</h6>
-                                <button className="btn white black-text" onClick={() => this.props.followUser(user._id)}><i className="material-icons black-text">add</i>Follow</button> 
+                                <button className="btn black-text" onClick={() => this.props.followUser(user._id)}>Follow</button> 
                             </div>
                         )
                         }
                     </div>
-                    
             </div>
         )
     }

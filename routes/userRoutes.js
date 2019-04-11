@@ -27,8 +27,8 @@ userRouter.get('/', (req, res) => {
 
 userRouter.put('/follow' , async (req,res,next) => {
     try{
-        const updatedUser = await User.findByIdAndUpdate(req.user._id,{$push:{following:req.body.followId}})
-        const updateFollower = await User.findByIdAndUpdate(req.body.followId,{$push:{followers:req.user._id}})
+        const updatedUser = await User.findByIdAndUpdate({_id: req.user._id},{$push:{following:req.body.followId}}, {new: true})
+        const updateFollower = await User.findByIdAndUpdate({_id: req.body.followId},{$push:{followers:req.user._id}}, {new: true})
         return res.status(201).send({updatedUser,updateFollower})
 
     }
@@ -40,8 +40,8 @@ userRouter.put('/follow' , async (req,res,next) => {
 
 userRouter.put('/unfollow' , async (req,res,next) => {
     try{
-        const updatedUser = await User.findByIdAndUpdate(req.user._id,{$pull:{following:req.body.followId}})
-        const updateFollower = await User.findByIdAndUpdate(req.body.followId,{$pull:{followers:req.user._id}})
+        const updatedUser = await User.findByIdAndUpdate({_id: req.user._id},{$pull:{following:req.body.followId}}, {new: true})
+        const updateFollower = await User.findByIdAndUpdate({_id: req.body.followId},{$pull:{followers:req.user._id}}, {new: true})
         return res.status(201).send({updatedUser,updateFollower})
 
     }

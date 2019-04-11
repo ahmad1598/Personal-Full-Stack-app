@@ -116,14 +116,14 @@ class Posts extends Component {
                         </span>  
                         <a href="#"         
                             onClick={() => this.props.deletePost(_id, postText)}
-                            className="btn delete">
+                            className="btn delete profileDelete">
                             Delete
                             {/* <i className="material-icons">delete</i> */}
                         </a>
                         
                         <a href="#" 
                             onClick={this.editToggler} 
-                            className="btn edit">Edit
+                            className="btn edit profileEdit">Edit
                             {/* <i className="material-icons">edit</i> */}
                         </a>
                     </div>  
@@ -131,13 +131,13 @@ class Posts extends Component {
             {/* comments */}
             {/* <form onSubmit={this.handleCommentSubmit}> */}
                 <input 
-                    style={{width:400}}
+                    
                     type="text" 
                     name="commentText" 
                     value = {this.state.commentText} 
                     onChange={this.handleCommentChange}
                     placeholder="Add a comment..." disabled
-                    /> <br/>
+                    /> 
                     <button className="btn cyan lighten-4 black-text" onClick={() => alert("Comment feature will be added soon...")}>POST</button>
 
                     {/*  YOU CAN SHOW ALL COMMENTS HERE - USE MAP AND GO OVER COMMENTS ARRAY  */}

@@ -24,7 +24,8 @@ class DataProvider extends Component {
             isLoggedIn: ((localStorage.getItem('isLoggedIn')) === "true") || false,
             user: JSON.parse(localStorage.getItem("user")) || {},
             errMsg:'',
-            following:[]
+            following:[],
+            followers:[]
         }
     }
 
@@ -32,7 +33,6 @@ class DataProvider extends Component {
         axios.post("/auth/signup", credentials)
             .then(response => {
                 const { user, token } = response.data
-                // localStorage.setItem("user", JSON.stringify(user))
                 localStorage.user = JSON.stringify(user)
                 localStorage.setItem("token", token)
                 this.setState(prevState => ({ 
@@ -104,14 +104,16 @@ class DataProvider extends Component {
     getUsers = () => {
         dataAxios.get("/api/users")
             .then(res => {
+                console.log(res.data)
                 const updatedUserArr = res.data.filter(user => {
                     if(!this.state.user.following.includes(user._id)){
                         return user
                     }
                 })
+                console.log(updatedUserArr)
                 this.setState({
                     users: updatedUserArr.filter(user => user._id !== this.state.user._id)
-                })
+                }, () => console.log(this.state.users))
             })
             .catch(err => console.log(err.response.data.errMsg))
     }
@@ -188,11 +190,7 @@ class DataProvider extends Component {
 
     followUser = (followId) => {
         dataAxios.put(`/api/users/follow`, {followId}).then(res => {
-            console.log(res.data.updatedUser)
-            console.log(followId)
-            console.log(this.state.user)
             localStorage.setItem("user", JSON.stringify(res.data.updatedUser))
-   
             this.setState(prevState => ({ 
                 user: res.data.updatedUser,
                 users: prevState.users.filter(user => user._id !== followId)
@@ -201,9 +199,24 @@ class DataProvider extends Component {
         })
     }
 
-    following = (followId) => {
-        dataAxios.put(`/api/users/following`, {followId}).then(res => {
+    unFollowUser = (followId) => {
+        dataAxios.put(`/api/users/unfollow`,{followId}).then(res => {
             console.log(res.data)
+            localStorage.setItem("user",JSON.stringify(res.data.updatedUser))
+            this.setState(prevState => ({
+                following: prevState.following.filter(user => user._id !== followId)
+            }))
+        })
+    }
+
+    getFollower= () => {
+        dataAxios.get(`/api/users/followers`).then(res => {
+            this.setState({followers: res.data})
+        })
+    }
+
+    getFollowing = () => {
+        dataAxios.get(`/api/users/following`).then(res => {
             this.setState({following: res.data})
         })
     }
@@ -233,7 +246,12 @@ class DataProvider extends Component {
                     deleteUser:this.deleteUser,
                     handleLike: this.handleLike,
                     handleDislike:this.handleDislike,
-                    isLoggedIn: this.state.isLoggedIn
+                    isLoggedIn: this.state.isLoggedIn,
+                    getFollowing: this.getFollowing,
+                    following: this.state.following,
+                    getFollower: this.getFollower,
+                    followers: this.state.followers,
+                    unFollowUser: this.unFollowUser
                 }}>
                 {this.props.children}
             </DataContext.Provider>
