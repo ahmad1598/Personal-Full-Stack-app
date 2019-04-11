@@ -12,7 +12,7 @@ app.use(express.json())
 app.use(morgan('dev'))
 // app.use(express.static(path.join(__dirname, "client", "build")))
 
-mongoose.connect("mongodb://localhost:27017/final-project" , {useNewUrlParser:true} , () => {
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/final-project" , {useNewUrlParser:true} , () => {
     console.log("[+] Connected to the DB")
 })
 
@@ -27,7 +27,7 @@ app.use("/api/posts", require("./routes/postRoutes.js"))
 app.use("/api/users", require("./routes/userRoutes.js"))
 
 // app.use(bodyParser.urlencoded({extended: true}))
-// app.use(express.static(path.join(__dirname, '..' , 'public')))
+app.use(express.static(path.join(__dirname, "client", "build")))
 
 app.use((err,req,res,next) => {
     console.log(err)
@@ -37,9 +37,9 @@ app.use((err,req,res,next) => {
     return res.send({errMsg: err.message})
 })
 
-// app.get("*" , (req, res) =>{
-//     res.sendFile(path.join(__dirname, "client", "build" , "index.html"))
-// })
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
 
 app.listen(PORT, () => {
     console.log(`[o] Server is running on port ${PORT}`)
