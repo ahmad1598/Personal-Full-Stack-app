@@ -5,6 +5,8 @@
 
 <h4>MongoDB, Express, React, NodeJs</h4>
 
-<img src="/client/src/img/User Home-Page.png" />
-
 > Link: https://vs-social.herokuapp.com/ 
+
+<img src="/client/src/img/User Home-Page.png" />
+<img src="/client/src/img/User Edit Profile.png" />
+<img src="/client/src/img/Edit Profile.png" />
