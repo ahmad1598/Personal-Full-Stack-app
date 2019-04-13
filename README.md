@@ -8,9 +8,9 @@
 > Link: https://vs-social.herokuapp.com/ 
 
 > User Login Page
-<img src="/client/src/img/LoginPage.png" />
+<img src="/client/src/img/VS-Social-Login.png" />
 > User Sign Up Page
-<img src="/client/src/img/SignUpPage.png" />
+<img src="/client/src/img/VS-Social-SignUp.png" />
 > User Home Page
 <img src="/client/src/img/UserHome.png" />
 > User Profile Page & Following Tab
