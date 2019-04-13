@@ -239,6 +239,7 @@ p.card-title {
 .userHome{
     background-color: #fafafa;
     width: 100vw;
+    height: 100vh;
 }
 
 .newPostUserInfo{
@@ -397,7 +398,7 @@ i.material-icons {
     position: relative;
     background-color: whitesmoke;
     width: 100vw;
-    height: 200vh;
+    height: 100vh;
 }
 
 .EditProfile{
