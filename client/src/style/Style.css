@@ -5,10 +5,7 @@
 
 body{
         font-family: Cambria, Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif;
-        /* background: rgba(43, 43, 43, 0.808); */
         background-blend-mode: darken;
-        /* background-image: 
-            url("https://images.unsplash.com/photo-1475783006851-1d68dd683eff?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"); */
         background-size: cover;
         background-position: top;
         font-weight: 400;
@@ -16,6 +13,9 @@ body{
         color: #1d3c41;
         overflow-y: scroll;
         font-family: 'Julius Sans One', sans-serif;
+        background: linear-gradient(-45deg, rgb(82, 137, 238), rgb(2, 43, 226), #23A6D5, #23D5AB);
+        background-size: 400% 400%;
+        animation: Gradient 15s ease infinite;
 }
 
 @keyframes Gradient {
@@ -81,15 +81,15 @@ nav {
     padding: 40px;
     margin-top: 100px;
     color: #003a70;
-    background: linear-gradient(-45deg, rgb(0, 98, 163),  rgba(30, 30, 31, 0.651), rgb(1, 50, 68));
+    /* background: linear-gradient(-45deg, rgb(0, 98, 163),  rgba(199, 199, 199, 0.651), rgb(1, 50, 68));
 	background-size: 400% 400%;
-	animation: Gradient 10s ease infinite;
+	animation: Gradient 10s ease infinite; */
     box-shadow: 0 0 0 1px rgba(0,0,0,.15), 0 2px 3px rgba(0,0,0,.2);
     transition: box-shadow 83ms;
 }
 
 ::placeholder {
-	color: #616161;
+	color: #e2e2e2;
 	opacity: 1;
 }
 
